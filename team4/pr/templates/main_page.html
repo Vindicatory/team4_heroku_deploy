@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if current_user.is_authenticated %}
+{% else %}
+
+Hello, world!
+<a href="/login">login</a>
+
+{% endif %}
+
+<main role="main" class="container">
+    <div class="jumbotron jumbotron-fluid">
+
+        <h1 class="display-4">Добро пожаловать, <b>{{ current_user.name }}</b>!</h1>
+        <h2 class="display-5">Ваши промо-кампании:</h2>
+
+    </div>
+</main>
+<div class="album py-5 bg-light">
+    <div class="container">
+
+        <!-- тут идут компании в div  промо-компании юзера-->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+
+            {% for record in db_boss %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                         xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                         preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#55595c"/>
+                        <text x="50%" y="50%" fill="#eceeef" dy=".3em">{{record.camp_title}}</text>
+                    </svg>
+
+                    <div class="card-body">
+                        <p class="card-text">{{record.camp_description[0:25]+".."}}</p>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <form method="post">
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary" name="submit_button"
+                                            value="{{record.camp_id}}">Редактировать
+                                    </button>
+                                </form>
+                            </div>
+                            <small class="text-muted">{{ record.camp_updated_on.strftime('%Y-%m-%d') }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+</div>
+
+</main>
+
+
+<main role="main" class="container">
+    <div class="jumbotron jumbotron-fluid">
+
+        <h2 class="display-4">Промо-кампании, в которых Вы участвуете:</h2>
+
+    </div>
+</main>
+<div class="album py-5 bg-light">
+    <div class="container">
+
+        <!-- тут идут компании в div  промо-компании юзера-->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+            <!-- образцы  промо-компании юзера-->
+            {% for record in db_user %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                         xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                         preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#55595c"/>
+                        <text x="50%" y="50%" fill="#eceeef" dy=".3em">{{record.camp_title}}</text>
+                    </svg>
+
+                    <div class="card-body">
+                        <p class="card-text">{{record.camp_description}}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <form method="post">
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary" name="submit_button"
+                                            value="{{record.camp_id}}">Открыть
+                                    </button>
+                                </form>
+                            </div>
+                            <small class="text-muted">{{ record.camp_updated_on.strftime('%Y-%m-%d') }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+</div>
+
+</main>
+
+
+<footer class="text-muted py-5">
+    <div class="container">
+        <p class="float-end mb-1">
+            <a href="#">Наверх</a>
+        </p>
+        <p class="mb-0">&copy; Alexander Shirokov & Roman Gulbis</p>
+    </div>
+</footer>
+
+
+{% endblock %}

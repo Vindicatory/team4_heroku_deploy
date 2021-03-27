@@ -1,0 +1,1 @@
+postgresql+psycopg2://python:42P9btUS4Z@/team4?host=rc1a-54b90b3th46bo6lj.mdb.yandexcloud.net&port=6432&sslmode=verify-full&sslrootcert=C:\root.crt

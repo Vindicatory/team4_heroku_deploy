@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="generator" content="Hugo 0.79.0">
+    <title>View company</title>
+
+
+    
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    <style>
+          div.centered 
+      {
+          text-align: center;
+      }
+    </style>
+    <style>
+      div.centered table 
+      {
+          margin: 0 auto; 
+          text-align: left;
+      }
+    </style>
+    
+    <!-- Custom styles for this template -->
+
+  <link rel="stylesheet" href="{{url_for('.static', filename='dashboard.css')}}">
+
+
+
+
+
+
+  <script src="https://www.google.com/jsapi"></script>
+  <script>
+   google.load("visualization", "1", {packages:["corechart"]});
+   google.setOnLoadCallback(drawChart);
+   function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+     ['Отзыв', 'Доля'],
+     ['Позитивные', {{stats_reaction_get[0]}} ],
+     ['Негативные', {{stats_reaction_get[2]}} ],
+     ['Нейтральные', {{stats_reaction_get[1]}} ]
+    ]);
+    var options = {
+     title: 'Отзывы',
+     is3D: true,
+     pieResidueSliceLabel: 'Остальное'
+    };
+    var chart = new google.visualization.PieChart(document.getElementById('react'));
+     chart.draw(data, options);
+   }
+  </script>
+  </head>
+  <body>
+
+
+
+
+<!-- navbar со всеми кнопками с ссылками --> 
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <a class="p-1 navbar-brand" href="#">#</a>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{url_for('newcampaign')}}">Создать промо-кампанию</a>
+      </li>  
+ 
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Обратная связь</a>
+      </li>       
+    </ul>  
+
+      <div class="col-8 d-flex justify-content-end">
+        <a class="btn btn-sm btn-outline-secondary" href="/logout">Log out</a>
+      </div>
+  </div>
+</nav>
+
+  <form method="post">
+  <button class="btn btn-outline-secondary"  style="width: 100px;" value="back"  name ="submit_button" type="submit" id="button-addon2">Назад</button>
+  </form>
+
+
+
+
+
+
+
+<main class="align-self-center">
+
+      <form method="post">
+<!-- Адрес add -->
+<div class="input-group mx-left" style="width: 1200px;">
+  <div class="input-group-prepend">
+    <select style="width:140px;" type="text" name="door_open" class="form-control" id="1">
+      <option>Дверь открыли</option>
+      <option>Дверь не открыли</option>
+    </select>
+  </div>
+
+    <div class="input-group-prepend">
+    <select style="width:140px;" type="text" name="reaction" class="form-control" id="2">
+      <option>Позитивно</option>
+      <option>Нейтрально</option>
+      <option>Негативно</option>
+    </select>
+  </div>
+
+
+  <input type="time" name="visit_time" placeholder="Время посещения" aria-label="Street" class="form-control" >
+  <input type="text" name="info" placeholder="Доп. информация" aria-label="House Number" class="form-control" style="width: 30px;">
+  <input type="text" required name="entrance_number" placeholder="Подъезд" aria-label="Street" class="form-control">
+  <input type="text" name="flat_number" placeholder="Квартира" aria-label="House Number" class="form-control" style="width: 30px;">
+
+
+
+  <button class="btn btn-outline-secondary" style="width: 230px;" name ="submit_button" type="submit" value="add_visit"  id="button-addon3">Посещение</button>
+</div>
+      </form>
+  </br>
+
+
+      <h2>Посещения адреса</h2>
+
+      <div>
+        <table style="width: 1200px;" class="mx-auto table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Дата посещения</th>
+              <th>Подъезд</th>
+              <th>Квартира</th>
+              <th>Открыли ли дверь</th>
+              <th>Реакция</th>
+              <th>Доп. Информация</th>
+
+            </tr>
+          </thead>
+          <tbody>
+
+
+{% for visit in db_visits %}
+            <tr>
+              <th>#</th>
+              <th>
+                {{visit.visit_time}}
+              </th>
+              <th>
+                {{visit.entrance_number}}
+              </th>
+              <th>
+                {{visit.flat_number}}
+              </th>
+              <th>
+                {%if visit.door_open == 1 %}
+                    Да
+                {%else %}
+                    Нет
+                {%endif%}
+              </th>
+              <th>
+                {{visit.reaction}}
+              </th>
+              <th>
+                {{visit.info}}
+              </th>
+            </tr>
+{% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+
+      <br>
+
+    </main>
+  </div>
+</div>
+
+
+      
+    </main>
+  </div>
+</div>
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
+
+<footer class="text-muted py-5">
+  <div class="container">
+    <p class="float-end mb-1">
+      <a href="#">Наверх</a>
+    </p>
+      <p> Доля открытых дверей: {{stats_door_open}} % </p>
+      <p> Доля посещенных квартир: {{stats_flats_visited}} %</p>
+  </div>
+
+  <div id="react" style="width: 500px; height: 400px;"></div>
+</footer>
+
+
+  </body>
+</html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="generator" content="Hugo 0.79.0">
+    <title>Регистрация</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{url_for('.static', filename='signin.css')}}">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+
+</head>
+<body class="text-center">
+
+<main class="form-signin">
+    <div class="container-sm">
+        <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
+
+        <form method="post">
+            <label for="inputEmail" class="visually-hidden">Username</label>
+            <input type="text" id="inputName" class="mt-1 mb-1 form-control" placeholder="Username" required autofocus
+                   name="username">
+
+
+            <label for="inputEmail" class="visually-hidden">Имя</label>
+            <input type="text" id="inputName" class="mt-1 mb-1 form-control" placeholder="Имя" required autofocus
+                   name="name">
+
+            <label for="inputEmail" class="visually-hidden">Фамилия</label>
+            <input type="text" id="inputSername" class="mt-1 mb-1 form-control" placeholder="Фамилия" required autofocus
+                   name="surname">
+
+            <label for="inputEmail" class="visually-hidden">Email</label>
+            <input type="Email" id="inputEmail" class="mt-1 mb-1 form-control" placeholder="Email" required autofocus
+                   name="email">
+
+            <label for="inputEmail" class="visually-hidden">Номер телефона</label>
+            <input type="Integer" id="inputEmail" class="mt-1 mb-1 form-control" placeholder="Номер телефона" required
+                   autofocus name="phone">
+
+            <label for="inputPassword" class="visually-hidden">Password</label>
+            <input type="password" id="inputPassword" class="mt-1 mb-1 form-control" placeholder="Password" required
+                   name="password">
+
+            <button class="w-100 btn btn-lg btn-primary" type="submit" name="submit_button" value="Fe">Sign up</button>
+        </form>
+
+        {% if error != None %}
+        <div class="alert alert-danger" role="alert">
+            {{error}}
+        </div>
+        {% endif %}
+
+
+        <br>
+        <form method="post">
+
+
+            <button class="w-100 mt-3 mb-3 btn btn-lg btn-link" href="#" type="submit" name="submit_button"
+                    value="Войти в аккаунт">У меня уже есть аккаунт
+            </button>
+
+
+        </form>
+    </div>
+    <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+
+
+</main>
+
+
+</body>
+</html>

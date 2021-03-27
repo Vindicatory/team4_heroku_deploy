@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<table style="width:100%">
+<tr>
+    <td style="width:50%">
+        <main role="main" class="container ">
+
+            <!-- форма создания кампании -->
+            <main class="form-signin">
+                <form action="" method="post">
+                    <div class="form-row">
+                        <div class="form-group col-md-6 mb-2">
+                            <label for="inputEmail4"><h5>Введите название вашей кампании:</h5></label>
+                            <input type="text" required name="campaign_name" class="form-control" id="inputEail4">
+                        </div>
+                        <div class="form-group col-md-6 mb-2">
+                            <label for="inputEmail4"><h5>Введите описание кампании:</h5></label>
+                            <input type="text" required name="description" class="form-control" id="inputEmail4">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" name="submit" value="add new campaign">Опубликовать
+                    </button>
+                </form>
+            </main>
+        </main>
+    </td>
+    <td style="width:40%">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class=flashes>
+            {% for category, message in messages %}
+            {% if category == 'error' %}
+            <div class="alert alert-danger" style="width: 500px;" role="alert">
+                <strong>Ошибка!</strong> {{message}}
+            </div>
+            {% else %}
+            {% if message != 'Please log in to access this page.' %}
+            <div class="alert alert-success" style="width: 500px;" role="alert">
+                <strong>Отлично!</strong> {{message}}
+            </div>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </td>
+</tr>
+</table>
+
+{% endblock %}
